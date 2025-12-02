@@ -2,7 +2,7 @@ const std = @import("std");
 const aoc2025_zig = @import("aoc2025_zig");
 
 pub fn main() !void {
-    const gpa = std.heap.GeneralPurposeAllocator(.{}){};
+    var gpa = std.heap.GeneralPurposeAllocator(.{}){};
     defer _ = gpa.deinit();
 
     const gpa_allocator = gpa.allocator();
@@ -10,7 +10,7 @@ pub fn main() !void {
     defer std.process.argsFree(gpa_allocator, args);
 
     if (args.len < 3) {
-        std.debug.print("Usage: {} <input_file> <day>\n", .{args[0]});
+        std.debug.print("Usage: {s} <input_file> <day>\n", .{args[0]});
         return;
     }
 
@@ -18,17 +18,17 @@ pub fn main() !void {
     const day_str = args[2];
     const day = try std.fmt.parseInt(u32, day_str, 10);
 
-    const arena = std.heap.ArenaAllocator.init(gpa_allocator);
+    var arena = std.heap.ArenaAllocator.init(gpa_allocator);
     defer arena.deinit();
     const arena_allocator = arena.allocator();
 
     switch (day) {
         1 => {
             const result = try aoc2025_zig.day_one.solve(arena_allocator, input_file_path);
-            std.debug.print("Day 1: {}\n", .{result});
+            std.debug.print("Day 1: {d}\n", .{result});
         },
         else => {
-            std.debug.print("Invalid day: {}\n", .{day});
+            std.debug.print("Invalid day: {d}\n", .{day});
         },
     }
 }

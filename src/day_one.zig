@@ -2,7 +2,7 @@ const std = @import("std");
 const Allocator = std.mem.Allocator;
 const assert = std.debug.assert;
 
-pub fn solve(allocator: Allocator, path: []const u8) !i64 {
+pub fn p1(allocator: Allocator, path: []const u8) !u64 {
     const data = try readFile(allocator, path);
     var lines = std.mem.splitScalar(u8, data, '\n');
     var instructions = std.ArrayList(Instruction){};
@@ -13,12 +13,12 @@ pub fn solve(allocator: Allocator, path: []const u8) !i64 {
     }
 
     var current_combination: i64 = 50;
-    std.debug.print("The dail is pointing at:\n\t50\n", .{});
+    var zero_count: u64 = 0;
 
     for (instructions.items) |instruction| {
         switch (instruction.direction) {
             .left => {
-                const new_combination = current_combination - instruction.distance;
+                const new_combination = @rem((current_combination - instruction.distance), 100);
                 if (new_combination < 0) {
                     current_combination = 100 - @as(i64, @intCast(@abs(new_combination)));
                 } else {
@@ -29,10 +29,13 @@ pub fn solve(allocator: Allocator, path: []const u8) !i64 {
                 current_combination = @rem((current_combination + instruction.distance), 100);
             },
         }
-        std.debug.print("\t{d}\n", .{current_combination});
+
+        if (current_combination == 0) {
+            zero_count += 1;
+        }
     }
 
-    return current_combination;
+    return zero_count;
 }
 
 const Direction = enum { left, right };
@@ -53,6 +56,7 @@ fn parseInstruction(line: []const u8) !Instruction {
 
     const distance_str = std.mem.trimEnd(u8, line[1..], " ");
     const distance = try std.fmt.parseInt(i64, distance_str, 10);
+    // const practical_distance = @rem(distance, 99) - 50;
 
     return .{ .direction = direction, .distance = distance };
 }

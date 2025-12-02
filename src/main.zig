@@ -24,8 +24,8 @@ pub fn main() !void {
 
     switch (day) {
         1 => {
-            const result = try aoc2025_zig.day_one.solve(arena_allocator, input_file_path);
-            std.debug.print("Day 1: {d}\n", .{result});
+            const p1_result = try aoc2025_zig.day_one.p1(arena_allocator, input_file_path);
+            std.debug.print("Day one puzzle one: {d}\n", .{p1_result});
         },
         else => {
             std.debug.print("Invalid day: {d}\n", .{day});

@@ -29,6 +29,10 @@ pub fn main() !void {
             std.debug.print("Day one puzzle one: {d}\n", .{p1_result});
             std.debug.print("Day one puzzle two: {d}\n", .{p2_result});
         },
+        2 => {
+            const p1_result = try aoc2025_zig.day_two.p1(arena_allocator, input_file_path);
+            std.debug.print("Day two puzzle one: {d}\n", .{p1_result});
+        },
         else => {
             std.debug.print("Invalid day: {d}\n", .{day});
         },

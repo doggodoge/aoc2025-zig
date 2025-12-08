@@ -32,7 +32,6 @@ pub fn p1(allocator: Allocator, path: []const u8) !u64 {
     return zero_count;
 }
 
-// Now, count every time the dial crosses the number zero.
 pub fn p2(allocator: Allocator, path: []const u8) !u64 {
     const data = try readFile(allocator, path);
     const instructions = try parseInstructions(allocator, data);
@@ -113,7 +112,6 @@ fn parseInstruction(line: []const u8) !Instruction {
 
     const distance_str = std.mem.trimEnd(u8, line[1..], " ");
     const distance = try std.fmt.parseInt(i64, distance_str, 10);
-    // const practical_distance = @rem(distance, 99) - 50;
 
     return .{ .direction = direction, .distance = distance };
 }

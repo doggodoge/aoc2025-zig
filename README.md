@@ -1,3 +1,6 @@
+> [!WARNING]
+> Archived on GitHub and moved to https://git.sr.ht/~gary_moore/aoc2025-zig
+
 # Advent of Code 2025 Solutions in Zig
 
 Not writing much here, just attempting 2025s Advent of Code in Zig in an attempt
